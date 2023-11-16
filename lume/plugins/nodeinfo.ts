@@ -4,12 +4,20 @@ import { merge } from 'lume/core/utils.ts'
 import type { Site } from 'lume/core.ts'
 import { Page } from 'lume/core/filesystem.ts'
 
-export type AobaNodeInfo = {
+export interface Options {
+  /**
+   * If false, then output `/.well-known/*` files to `/well-known/*`.
+   * @defaultValue `true`
+   */
+  dotdir: boolean
+  /** Generated NodeInfo. */
   nodeInfo: NodeInfo<'2.1'>
+  /** Generated NodeInfo Discovery. */
   wellKnown: WellKnownNodeInfo
 }
 
-export const defaults = (site: Site): AobaNodeInfo => ({
+export const defaults = (site: Site): Options => ({
+  dotdir: true,
   nodeInfo: {
     version: '2.1',
     software: {
@@ -45,13 +53,15 @@ export const defaults = (site: Site): AobaNodeInfo => ({
   },
 })
 
-export default (options?: Partial<AobaNodeInfo>) => (site: Site) => {
-  const { nodeInfo, wellKnown } = merge<AobaNodeInfo>(defaults(site), options)
+export default (userOptions?: Partial<Options>) => (site: Site) => {
+  const { dotdir, nodeInfo, wellKnown } = merge(defaults(site), userOptions)
 
   site.addEventListener('beforeRender', ({ pages }) => {
     pages.push(
       Page.create(
-        '/.well-known/nodeinfo',
+        dotdir
+          ? '/.well-known/nodeinfo'
+          : '/well-known/nodeinfo',
         JSON.stringify(wellKnown, null, 2),
       ),
       Page.create(
