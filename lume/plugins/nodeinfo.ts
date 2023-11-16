@@ -27,7 +27,7 @@ export const defaults = (site: Site): AobaNodeInfo => ({
     usage: {
       users: {
         total: 1,
-      }
+      },
     },
     metadata: {},
   },

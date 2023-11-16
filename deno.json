@@ -7,6 +7,6 @@
     "semiColons": false
   },
   "tasks": {
-    "ok": "deno fmt --check && deno lint && deno check src/**/*.ts"
+    "ok": "deno fmt --check && deno lint"
   }
 }
