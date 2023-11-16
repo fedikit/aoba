@@ -1,4 +1,4 @@
-import type { Webfinger } from 'fedikit/webfinger/lib/types.ts'
+import type { Webfinger } from 'fedikit/src/webfinger/lib/types.ts'
 import type { Site } from 'lume/core.ts'
 import { merge } from 'lume/core/utils.ts'
 import { Page } from 'lume/core/filesystem.ts'

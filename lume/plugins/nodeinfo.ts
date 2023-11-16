@@ -1,5 +1,5 @@
-import type { NodeInfo, WellKnownNodeInfo } from 'fedikit/nodeinfo/lib/types.ts'
-import { convert } from 'fedikit/nodeinfo/lib/convert.ts'
+import type { NodeInfo, WellKnownNodeInfo } from 'fedikit/src/nodeinfo/lib/types.ts'
+import { convert } from 'fedikit/src/nodeinfo/lib/convert.ts'
 import { merge } from 'lume/core/utils.ts'
 import type { Site } from 'lume/core.ts'
 import { Page } from 'lume/core/filesystem.ts'

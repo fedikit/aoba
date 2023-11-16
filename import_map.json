@@ -1,6 +1,6 @@
 {
   "imports": {
-    "fedikit/": "https://deno.land/x/fedikit@v0.0.1-alpha.4/src/",
+    "fedikit/": "https://deno.land/x/fedikit@v0.0.1-alpha.4/",
     "hono/": "https://deno.land/x/hono@v3.10.0/",
     "lume/": "https://deno.land/x/lume@v1.19.3/",
     "lume_theme_simple_blog/": "https://deno.land/x/lume_theme_simple_blog@v0.12.1/"
