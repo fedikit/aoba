@@ -1,0 +1,3 @@
+# /.well_known/*  /well_known/:splat 200
+/.well-known/webfinger /well-known/webfinger 200
+/.well-known/nodeinfo /well-known/nodeinfo 200

@@ -1,0 +1,12 @@
+{
+  "lock": false,
+  "importMap": "import_map.json",
+  "exclude": ["LICENSE.md", "examples/**/_site"],
+  "fmt": {
+    "singleQuote": true,
+    "semiColons": false
+  },
+  "tasks": {
+    "ok": "deno fmt --check && deno lint && deno check src/**/*.ts"
+  }
+}

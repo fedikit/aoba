@@ -1,0 +1,8 @@
+/actor
+  Content-Type: application/activity+json
+/notice/*
+  Content-Type: application/activity+json
+/well-known/webfinger
+  Content-Type: application/jrd+json
+/well-known/nodeinfo
+  Content-Type: application/json

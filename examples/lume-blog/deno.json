@@ -1,0 +1,14 @@
+{
+  "lock": false,
+  "importMap": "../../import_map.json",
+  "exclude": ["_site"],
+  "fmt": {
+    "singleQuote": true,
+    "semiColons": false
+  },
+  "tasks": {
+    "lume": "echo \"import 'lume/cli.ts'\" | deno run --unstable -A -",
+    "build": "deno task lume",
+    "serve": "deno task lume -s"
+  }
+}
