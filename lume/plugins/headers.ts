@@ -32,7 +32,7 @@ export default (userOption: Partial<Options>): Plugin => (site: Site) => {
   ])
 
   // host-meta
-  // host-meta.json has a json extension, so it is skipped.
+  // host-meta.json has a .json extension, so it is skipped.
   headers.set(dotdir ? '/.well-known/host-meta' : '/well-known/host-meta', [
     'Content-Type: application/xrd+xml',
   ])
