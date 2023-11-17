@@ -29,6 +29,24 @@ import webfinger from 'aoba/lume/plugins/webfinger.ts'
 site.use(webfinger())
 ```
 
+### [_headers](/lume/plugins/headers.ts)
+
+Set up `_headers` file for your site. (Netlify and Cloudflare Pages)
+
+```ts
+import headers from 'aoba/lume/plugins/headers.ts'
+site.use(headers())
+```
+
+### [_redirects](/lume/plugins/redirects.ts)
+
+Set up `_redirects` file for your site. (Netlify and Cloudflare Pages)
+
+```ts
+import redirects from 'aoba/lume/plugins/redirects.ts'
+site.use(redirects())
+```
+
 <!-- ## [Hono Integration](/hono/) -->
 
 ## Hatsu Integration
