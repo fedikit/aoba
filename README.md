@@ -17,7 +17,7 @@ the current version):
 ```json
 {
   "imports": {
-    "hono/": "https://deno.land/x/aoba@v{{version}}/"
+    "aoba/": "https://deno.land/x/aoba@v{{version}}/"
   }
 }
 ```
