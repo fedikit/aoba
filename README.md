@@ -9,6 +9,19 @@
 deno run -r https://deno.land/x/fedikit/scripts/generate_key.ts
 ``` -->
 
+## Setup
+
+Add Aoba to your `deno.json` or `import_map.json` (replace `{{version}}` with
+the current version):
+
+```json
+{
+  "imports": {
+    "hono/": "https://deno.land/x/aoba@v{{version}}/"
+  }
+}
+```
+
 ## [Lume Integration](/lume/)
 
 ### [NodeInfo](/lume/plugins/nodeinfo.ts)
@@ -89,7 +102,7 @@ server.use(
 Redirecting `.well-known/*` and `activity+json` requests.
 
 ```ts
-import { hatsuWellKnown, hatsuObject } from 'aoba/hono/middlewares/hatsu.ts'
+import { hatsuObject, hatsuWellKnown } from 'aoba/hono/middlewares/hatsu.ts'
 const instance = new URL('https://hatsu.local')
 app.use('/.well-known/*', hatsuWellKnown({ instance }))
 app.use('/posts/*', hatsuObject({ instance }))
