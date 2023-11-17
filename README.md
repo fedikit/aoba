@@ -75,7 +75,7 @@ site.use(
 Redirecting `.well-known/*` and `activity+json` requests.
 
 ```ts
-import hatsuMiddleware from 'aoba'
+import hatsuMiddleware from 'aoba/lume/middlewares/hatsu.ts'
 server.use(
   hatsuMiddleware({
     instance: new URL('https://hatsu.local'),
@@ -84,8 +84,16 @@ server.use(
 )
 ```
 
-<!-- [Hono Server Middleware](/hono/middlewares/hatsu.ts)
-Redirecting `.well-known/*` and `activity+json` requests. -->
+### [Hono Server Middleware](/hono/middlewares/hatsu.ts)
+
+Redirecting `.well-known/*` and `activity+json` requests.
+
+```ts
+import { hatsuWellKnown, hatsuObject } from 'aoba/hono/middlewares/hatsu.ts'
+const instance = new URL('https://hatsu.local')
+app.use('/.well-known/*', hatsuWellKnown({ instance }))
+app.use('/posts/*', hatsuObject({ instance }))
+```
 
 ## License
 
