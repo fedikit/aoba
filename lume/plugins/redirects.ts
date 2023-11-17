@@ -8,7 +8,21 @@ export interface Options {
    * @defaultValue `true`
    */
   dotdir: boolean
-  /** Custom redirects rule */
+  /**
+   * Custom redirects rule.
+   * @example
+   * ```ts
+   * site.use(redirects({
+   *   custom: [
+   *     '/home /',
+   *     '/blog/my-post.php /blog/my-post',
+   *     '/news /blog',
+   *     '/cuties https://www.petsofnetlify.com',
+   *     '/authors/c%C3%A9line /authors/about-c%C3%A9line',
+   *   ],
+   * }))
+   * ```
+   */
   custom: string[]
 }
 

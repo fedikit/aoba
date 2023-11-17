@@ -8,7 +8,23 @@ export interface Options {
    * @defaultValue `true`
    */
   dotdir: boolean
-  /** Custom headers rule */
+  /**
+   * Custom headers rule.
+   * @example
+   * ```ts
+   * site.use(headers({
+   *   custom: {
+   *     '/*': [
+   *       'X-Frame-Options: DENY',
+   *       'X-XSS-Protection: 1; mode=block',
+   *     ],
+   *     '/templates/index2.html': [
+   *       'X-Frame-Options: SAMEORIGIN',
+   *     ],
+   *   },
+   * }))
+   * ```
+   */
   custom: Record<string, string[]>
 }
 
