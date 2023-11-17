@@ -1,4 +1,7 @@
-import type { NodeInfo, WellKnownNodeInfo } from 'fedikit/src/nodeinfo/lib/types.ts'
+import type {
+  NodeInfo,
+  WellKnownNodeInfo,
+} from 'fedikit/src/nodeinfo/lib/types.ts'
 import { convert } from 'fedikit/src/nodeinfo/lib/convert.ts'
 import { merge } from 'lume/core/utils.ts'
 import type { Site } from 'lume/core.ts'
@@ -56,12 +59,10 @@ export const defaults = (site: Site): Options => ({
 export default (userOptions?: Partial<Options>) => (site: Site) => {
   const { dotdir, nodeInfo, wellKnown } = merge(defaults(site), userOptions)
 
-  site.addEventListener('beforeRender', ({ pages }) => {
+  site.addEventListener('beforeRender', ({ pages }) =>
     pages.push(
       Page.create(
-        dotdir
-          ? '/.well-known/nodeinfo'
-          : '/well-known/nodeinfo',
+        dotdir ? '/.well-known/nodeinfo' : '/well-known/nodeinfo',
         JSON.stringify(wellKnown, null, 2),
       ),
       Page.create(
@@ -72,6 +73,5 @@ export default (userOptions?: Partial<Options>) => (site: Site) => {
         '/nodeinfo/2.0.json',
         JSON.stringify(convert(nodeInfo), null, 2),
       ),
-    )
-  })
+    ))
 }

@@ -34,7 +34,7 @@ export const defaults = (site: Site): Options => ({
         type: 'application/activity+json',
       },
     ],
-  }
+  },
 })
 
 export default (userOptions?: Partial<Options>) => (site: Site) => {
@@ -42,9 +42,7 @@ export default (userOptions?: Partial<Options>) => (site: Site) => {
   site.addEventListener('beforeRender', (event) =>
     event.pages.push(
       Page.create(
-        dotdir
-          ? '/.well-known/webfinger'
-          : '/well-known/webfinger',
+        dotdir ? '/.well-known/webfinger' : '/well-known/webfinger',
         JSON.stringify(
           webfinger,
           null,
@@ -52,5 +50,4 @@ export default (userOptions?: Partial<Options>) => (site: Site) => {
         ),
       ),
     ))
-
 }
