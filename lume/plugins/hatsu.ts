@@ -50,25 +50,28 @@ export const hatsuPlugin = (options: Options): Plugin => (site: Lume.Site) => {
   })
 
   // set <link rel="alternate" type="application/activity+json" /> for matched page
-  site.process(['.html'], (pages) => pages.forEach((page) => {
-    // console.log(page.outputPath, page.data.url)
-    if (
-      page.document &&
-      (!options.match || options.match?.some((matcher) => (page.data.url as string).match(matcher)))
-    ) {
-      const link = page.document.createElement('link')
-      link?.setAttribute('rel', 'alternate')
-      link?.setAttribute('type', 'application/activity+json')
-      link?.setAttribute(
-        'href',
-        new URL(
-          `/o/${new URL(page.data.url, site.options.location).href}`,
-          options.instance,
-        ).href,
-      )
-      page.document.head.appendChild(link)
-    }
-  }))
+  site.process(['.html'], (pages) =>
+    pages.forEach((page) => {
+      // console.log(page.outputPath, page.data.url)
+      if (
+        page.document &&
+        (!options.match || options.match?.some((matcher) =>
+          (page.data.url as string).match(matcher)
+        ))
+      ) {
+        const link = page.document.createElement('link')
+        link?.setAttribute('rel', 'alternate')
+        link?.setAttribute('type', 'application/activity+json')
+        link?.setAttribute(
+          'href',
+          new URL(
+            `/o/${new URL(page.data.url, site.options.location).href}`,
+            options.instance,
+          ).href,
+        )
+        page.document.head.appendChild(link)
+      }
+    }))
 }
 
 export default hatsuPlugin

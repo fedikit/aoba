@@ -7,7 +7,7 @@ Deno.test('build examples/lume-blog', async () => {
   // await build(site)
   // await assertSiteSnapshot(t, site)
   await site.build()
-    .catch(err => console.error(Deno.inspect(err, { colors: true })))
+    .catch((err) => console.error(Deno.inspect(err, { colors: true })))
 
   assertEquals(site.options.location, new URL('https://aoba-test.netlify.app'))
 })
