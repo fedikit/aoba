@@ -1,7 +1,6 @@
 import type { Webfinger } from 'fedikit/src/webfinger/lib/types.ts'
-import type { Site } from 'lume/core.ts'
-import { merge } from 'lume/core/utils.ts'
-import { Page } from 'lume/core/filesystem.ts'
+import { Page } from 'lume/core/file.ts'
+import { merge } from 'lume/core/utils/object.ts'
 
 export interface Options {
   /**
@@ -13,7 +12,7 @@ export interface Options {
   webfinger: Partial<Webfinger>
 }
 
-export const defaults = (site: Site): Options => ({
+export const defaults = (site: Lume.Site): Options => ({
   dotdir: true,
   webfinger: {
     subject:
@@ -37,17 +36,17 @@ export const defaults = (site: Site): Options => ({
   },
 })
 
-export default (userOptions?: Partial<Options>) => (site: Site) => {
+export default (userOptions?: Partial<Options>) => (site: Lume.Site) => {
   const { dotdir, webfinger } = merge(defaults(site), userOptions)
   site.addEventListener('beforeRender', (event) =>
     event.pages.push(
-      Page.create(
-        dotdir ? '/.well-known/webfinger' : '/well-known/webfinger',
-        JSON.stringify(
+      Page.create({
+        url: dotdir ? '/.well-known/webfinger' : '/well-known/webfinger',
+        content: JSON.stringify(
           webfinger,
           null,
           2,
         ),
-      ),
+      }),
     ))
 }

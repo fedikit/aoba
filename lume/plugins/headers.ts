@@ -1,6 +1,6 @@
-import { Page } from 'lume/core/filesystem.ts'
-import type { Plugin, Site } from 'lume/core.ts'
-import { merge } from 'lume/core/utils.ts'
+import { Page } from 'lume/core/file.ts'
+import type { Plugin } from 'lume/core/site.ts'
+import { merge } from 'lume/core/utils/object.ts'
 
 export interface Options {
   /**
@@ -33,7 +33,7 @@ export const defaults: Options = {
   custom: {},
 }
 
-export default (userOption: Partial<Options>): Plugin => (site: Site) => {
+export default (userOption: Partial<Options>): Plugin => (site: Lume.Site) => {
   const { dotdir, custom } = merge(defaults, userOption)
   const headers = new Map<string, string[]>()
 
@@ -60,9 +60,9 @@ export default (userOption: Partial<Options>): Plugin => (site: Site) => {
 
   site.addEventListener('beforeRender', ({ pages }) =>
     pages.push(
-      Page.create(
-        '/_headers',
-        Array.from(
+      Page.create({
+        url: '/_headers',
+        content: Array.from(
           headers,
           ([key, values]) =>
             [
@@ -70,6 +70,6 @@ export default (userOption: Partial<Options>): Plugin => (site: Site) => {
               ...values.map((value) => '  ' + value),
             ].join('\n'),
         ).join('\n'),
-      ),
+      }),
     ))
 }

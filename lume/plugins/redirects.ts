@@ -1,6 +1,6 @@
-import { Page } from 'lume/core/filesystem.ts'
-import type { Plugin, Site } from 'lume/core.ts'
-import { merge } from 'lume/core/utils.ts'
+import type { Plugin } from 'lume/core/site.ts'
+import { Page } from 'lume/core/file.ts'
+import { merge } from 'lume/core/utils/object.ts'
 
 export interface Options {
   /**
@@ -31,7 +31,7 @@ export const defaults: Options = {
   custom: [],
 }
 
-export default (userOption: Partial<Options>): Plugin => (site: Site) => {
+export default (userOption: Partial<Options>): Plugin => (site: Lume.Site) => {
   const options = merge(defaults, userOption)
   const redirects = new Set<string>([])
 
@@ -45,9 +45,9 @@ export default (userOption: Partial<Options>): Plugin => (site: Site) => {
 
   site.addEventListener('beforeRender', ({ pages }) =>
     pages.push(
-      Page.create(
-        '/_redirects',
-        Array.from(redirects).join('\n'),
-      ),
+      Page.create({
+        url: '/_redirects',
+        content: Array.from(redirects).join('\n'),
+      }),
     ))
 }

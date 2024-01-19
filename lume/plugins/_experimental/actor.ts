@@ -1,17 +1,17 @@
-import type { Site } from 'lume/core.ts'
-import { Page } from 'lume/core/filesystem.ts'
+import type { Plugin } from 'lume/core/site.ts'
+import { Page } from 'lume/core/file.ts'
 
 export interface Options {
   publicKeyPem: string
 }
 
 /** FOR TESTING ONLY */
-export default ({ publicKeyPem }: Options) => (site: Site) =>
+export default ({ publicKeyPem }: Options): Plugin => (site: Lume.Site) =>
   site.addEventListener('beforeRender', (event) =>
     event.pages.push(
-      Page.create(
-        '/actor',
-        JSON.stringify(
+      Page.create({
+        url: '/actor',
+        content: JSON.stringify(
           {
             '@context': [
               'https://www.w3.org/ns/activitystreams',
@@ -48,5 +48,5 @@ export default ({ publicKeyPem }: Options) => (site: Site) =>
           null,
           2,
         ),
-      ),
+      }),
     ))

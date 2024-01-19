@@ -1,6 +1,6 @@
 import lume from 'lume/mod.ts'
 // import basePath from 'lume/plugins/base_path.ts'
-import blog from 'lume_theme_simple_blog/mod.ts'
+import blog from 'https://deno.land/x/lume_theme_simple_blog@v0.14.0/mod.ts'
 
 import nodeinfo from '../../lume/plugins/nodeinfo.ts'
 import webfinger from '../../lume/plugins/webfinger.ts'

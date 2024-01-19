@@ -1,6 +1,6 @@
-import type { Plugin, Site } from 'lume/core.ts'
-import { Page } from 'lume/core/filesystem.ts'
-import { read } from 'lume/core/utils.ts'
+import type { Plugin } from 'lume/core/site.ts'
+import { Page } from 'lume/core/file.ts'
+import { read } from 'lume/core/utils/read.ts'
 
 export interface Options {
   /**
@@ -18,44 +18,43 @@ export interface Options {
   match?: RegExp[]
 }
 
-export const hatsuPlugin = (options: Options): Plugin => (site: Site) => {
+export const hatsuPlugin = (options: Options): Plugin => (site: Lume.Site) => {
   // copy .well-known files
   site.addEventListener('beforeRender', async ({ pages }) => {
     pages.push(
       // webfinger (with search params)
-      Page.create(
-        '/.well-known/webfinger',
-        await read(
+      Page.create({
+        url: '/.well-known/webfinger',
+        content: await read(
           new URL(
             `/.well-known/webfinger?resource=acct:${site.options.location.host}@${options.instance.host}`,
             options.instance,
           ).href,
           false,
         ),
-      ),
+      }),
       // other
       ...await Promise.all(
         ['nodeinfo', 'host-meta', 'host-meta.json']
           .map(async (file) =>
-            Page.create(
-              `/.well-known/${file}`,
-              await read(
+            Page.create({
+              url: `/.well-known/${file}`,
+              content: await read(
                 new URL(`/.well-known/${file}`, options.instance).href,
                 false,
               ),
-            )
+            })
           ),
       ),
     )
   })
 
   // set <link rel="alternate" type="application/activity+json" /> for matched page
-  site.process(['.html'], (page) => {
+  site.process(['.html'], (pages) => pages.forEach((page) => {
     // console.log(page.outputPath, page.data.url)
     if (
       page.document &&
-      page.data.url !== false &&
-      options.match?.some((matcher) => (page.data.url as string).match(matcher))
+      (!options.match || options.match?.some((matcher) => (page.data.url as string).match(matcher)))
     ) {
       const link = page.document.createElement('link')
       link?.setAttribute('rel', 'alternate')
@@ -69,7 +68,7 @@ export const hatsuPlugin = (options: Options): Plugin => (site: Site) => {
       )
       page.document.head.appendChild(link)
     }
-  })
+  }))
 }
 
 export default hatsuPlugin

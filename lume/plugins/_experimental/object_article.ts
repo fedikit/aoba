@@ -1,16 +1,15 @@
 /** @see {@link https://www.w3.org/ns/activitystreams#Article} */
-import type { Site } from 'lume/core.ts'
-import { Page } from 'lume/core/filesystem.ts'
+import { Page } from 'lume/core/file.ts'
 
-export default () => (site: Site) => {
+export default () => (site: Lume.Site) => {
   // site.process(['.md', '.mdx'], (page, pages) => {
-  site.process(['.md'], (page, pages) => {
+  site.process(['.md'], (pages) => pages.forEach((page) => {
     const match = page.outputPath?.match(/^\/posts\/([^\/?#]+)\/index.html$/)
     if (match?.[1]) {
       // Create Article Object
-      pages.push(Page.create(
-        `/notice/${match[1]}`,
-        JSON.stringify(
+      pages.push(Page.create({
+        url: `/notice/${match[1]}`,
+        content: JSON.stringify(
           {
             '@context': ['https://www.w3.org/ns/activitystreams'],
             attributedTo: new URL('/actor', site.options.location).href,
@@ -30,7 +29,7 @@ export default () => (site: Site) => {
           null,
           2,
         ),
-      ))
+      }))
       // Set <link rel="alternate" type="application/activity+json" />
       const link = page.document!.createElement('link')
       link?.setAttribute('rel', 'alternate')
@@ -41,5 +40,5 @@ export default () => (site: Site) => {
       )
       page.document!.head.appendChild(link)
     }
-  })
+  }))
 }

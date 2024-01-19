@@ -3,9 +3,8 @@ import type {
   WellKnownNodeInfo,
 } from 'fedikit/src/nodeinfo/lib/types.ts'
 import { convert } from 'fedikit/src/nodeinfo/lib/convert.ts'
-import { merge } from 'lume/core/utils.ts'
-import type { Site } from 'lume/core.ts'
-import { Page } from 'lume/core/filesystem.ts'
+import { merge } from 'lume/core/utils/object.ts'
+import { Page } from 'lume/core/file.ts'
 
 export interface Options {
   /**
@@ -19,7 +18,7 @@ export interface Options {
   wellKnown: WellKnownNodeInfo
 }
 
-export const defaults = (site: Site): Options => ({
+export const defaults = (site: Lume.Site): Options => ({
   dotdir: true,
   nodeInfo: {
     version: '2.1',
@@ -56,22 +55,22 @@ export const defaults = (site: Site): Options => ({
   },
 })
 
-export default (userOptions?: Partial<Options>) => (site: Site) => {
+export default (userOptions?: Partial<Options>) => (site: Lume.Site) => {
   const { dotdir, nodeInfo, wellKnown } = merge(defaults(site), userOptions)
 
   site.addEventListener('beforeRender', ({ pages }) =>
     pages.push(
-      Page.create(
-        dotdir ? '/.well-known/nodeinfo' : '/well-known/nodeinfo',
-        JSON.stringify(wellKnown, null, 2),
-      ),
-      Page.create(
-        '/nodeinfo/2.1.json',
-        JSON.stringify(nodeInfo, null, 2),
-      ),
-      Page.create(
-        '/nodeinfo/2.0.json',
-        JSON.stringify(convert(nodeInfo), null, 2),
-      ),
+      Page.create({
+        url: dotdir ? '/.well-known/nodeinfo' : '/well-known/nodeinfo',
+        content: JSON.stringify(wellKnown, null, 2),
+      }),
+      Page.create({
+        url: '/nodeinfo/2.1.json',
+        content: JSON.stringify(nodeInfo, null, 2),
+      }),
+      Page.create({
+        url: '/nodeinfo/2.0.json',
+        content: JSON.stringify(convert(nodeInfo), null, 2),
+      }),
     ))
 }
