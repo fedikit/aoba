@@ -2,6 +2,11 @@
   "lock": false,
   "importMap": "../../import_map.json",
   "exclude": ["_site"],
+  "compilerOptions": {
+    "types": [
+      "lume/types.ts"
+    ]
+  },
   "fmt": {
     "singleQuote": true,
     "semiColons": false
