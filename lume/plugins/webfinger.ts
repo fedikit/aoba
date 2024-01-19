@@ -1,6 +1,7 @@
-import type { Webfinger } from 'fedikit/src/webfinger/lib/types.ts'
 import { Page } from 'lume/core/file.ts'
 import { merge } from 'lume/core/utils/object.ts'
+
+import type { Webfinger } from '../../deps/fedikit/webfinger.ts'
 
 export interface Options {
   /**

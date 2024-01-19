@@ -1,10 +1,11 @@
-import type {
-  NodeInfo,
-  WellKnownNodeInfo,
-} from 'fedikit/src/nodeinfo/lib/types.ts'
-import { convert } from 'fedikit/src/nodeinfo/lib/convert.ts'
 import { merge } from 'lume/core/utils/object.ts'
 import { Page } from 'lume/core/file.ts'
+
+import {
+  convert,
+  type NodeInfo,
+  type WellKnownNodeInfo,
+} from '../../deps/fedikit/nodeinfo.ts'
 
 export interface Options {
   /**

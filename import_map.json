@@ -1,6 +1,5 @@
 {
   "imports": {
-    "fedikit/": "https://deno.land/x/fedikit@v0.0.1-alpha.4/",
     "hono/": "https://deno.land/x/hono@v3.10.0/",
     "lume/": "https://deno.land/x/lume@v2.0.0/"
   }
