@@ -7,6 +7,8 @@
     "semiColons": false
   },
   "tasks": {
-    "ok": "deno fmt --check && deno lint"
+    "test": "TZ=Z LUME_LOGS=ERROR deno test -A",
+    "test:update": "deno task test -- --update",
+    "ok": "deno fmt --check && deno lint && deno task test"
   }
 }
