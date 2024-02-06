@@ -65,7 +65,7 @@ export const hatsuPlugin = (options: Options): Plugin => (site: Lume.Site) => {
         link?.setAttribute(
           'href',
           new URL(
-            `/o/${new URL(page.data.url, site.options.location).href}`,
+            `/posts/${new URL(page.data.url, site.options.location).href}`,
             options.instance,
           ).href,
         )

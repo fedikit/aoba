@@ -24,23 +24,22 @@ export interface Options extends PluginOptions {
 export const hatsuMiddleware =
   (options: Options): Middleware => async (req, next) => {
     const accept = req.headers.get('accept')
-    const url = new URL(req.url)
+    const { origin, pathname, search } = new URL(req.url)
 
     // redirect .well-known
-    if (url.pathname.startsWith('/.well-known/')) {
+    if (pathname.startsWith('/.well-known/')) {
       return Response.redirect(
-        new URL(url.pathname + url.search, options.instance),
+        new URL(pathname + search, options.instance),
       )
     } else if (
       // redirect application/activity+json request
       accept?.includes('application/activity+json') &&
       (!options.match ||
-        options.match.some((matcher) => url.pathname.match(matcher)))
+        options.match.some((matcher) => pathname.match(matcher)))
     ) {
       return Response.redirect(
         new URL(
-          // remove search params
-          `/o/${url.href.includes('?') ? url.href.split('?')[0] : url.href}`,
+          `/posts/${origin + pathname}`,
           options.instance,
         ),
       )

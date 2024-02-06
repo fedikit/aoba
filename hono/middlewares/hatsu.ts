@@ -45,7 +45,7 @@ export const hatsuObject = ({ instance }: Options) =>
     const accept = c.req.header('Accept')
     const url = c.req.url.includes('?') ? c.req.url.split('?')[0] : c.req.url
     if (accept?.includes('application/activity+json')) {
-      return c.redirect(new URL(`/o/${url}`, instance).href, 308)
+      return c.redirect(new URL(`/posts/${url}`, instance).href, 308)
     }
     await next()
   })
