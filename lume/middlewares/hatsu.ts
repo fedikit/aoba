@@ -1,4 +1,4 @@
-import type { Middleware } from 'lume/core.ts'
+import type { Middleware } from 'lume/core/server.ts'
 import type { Options as PluginOptions } from '../plugins/hatsu.ts'
 
 export interface Options extends PluginOptions {
